@@ -61,7 +61,7 @@ const Xstates = () => {
                 const response=await fetch(`${BASE_URL}/country=${selectedCountry}/state=${selectedState}/cities`);
                 const data=await response.json();
                 setCities(data);
-                selectedCity("");
+                // selectedCity("");
                 console.log("Cities data: ",data)
             }catch(err){
                 console.error("Fetching Cities: ",err)
@@ -69,7 +69,9 @@ const Xstates = () => {
         }
         fetchCities();
         }
-    },[selectedState])
+    },[selectedState, selectedCountry])
+
+   
 
     const handleOnChangeCountries=(e)=>{
         setSelectedCountry(e.target.value);
