@@ -61,7 +61,6 @@ const Xstates = () => {
                 const response=await fetch(`${BASE_URL}/country=${selectedCountry}/state=${selectedState}/cities`);
                 const data=await response.json();
                 setCities(data);
-                // selectedCity("");
                 console.log("Cities data: ",data)
             }catch(err){
                 console.error("Fetching Cities: ",err)
@@ -70,8 +69,10 @@ const Xstates = () => {
         fetchCities();
         }
     },[selectedState, selectedCountry])
-
-   
+    useEffect(()=>{
+        setSelectedCity("")
+    },[selectedState])
+  
 
     const handleOnChangeCountries=(e)=>{
         setSelectedCountry(e.target.value);
