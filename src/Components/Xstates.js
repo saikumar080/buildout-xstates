@@ -109,6 +109,12 @@ const handleOnChangeCity=(e)=>{
                     <option key={ind} value={city}>{city}</option>
                 ))}
             </select>
+            <div style={{margin:10, color:"grey", fontWeight:"bold"}}>
+               {selectedCountry && selectedState && selectedCity &&(
+                <h3>You selected {selectedCity},{selectedState},{selectedCountry}  </h3>
+               )}
+
+            </div>
         </div>
     )
 }
