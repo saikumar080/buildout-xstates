@@ -85,16 +85,16 @@ const handleOnChangeCity=(e)=>{
     setSelectedCity(e.target.value);
 }
 //Build display String  to show the selected location=======
-const displayString=()=>{
-    if(selectedCity){
-        return `You selected ${selectedCity}, ${selectedState},${selectedCountry}`;
-    }else if(selectedState){
-        return `You selected ${selectedState},${selectedCountry}`
-    }else if(selectedCountry){
-        return `You Selected ${selectedCountry}`
-    }
-    return "";
-}
+// const displayString=()=>{
+//     if(selectedCity){
+//         return `You selected ${selectedCity}, ${selectedState},${selectedCountry}`;
+//     }else if(selectedState){
+//         return `You selected ${selectedState},${selectedCountry}`
+//     }else if(selectedCountry){
+//         return `You Selected ${selectedCountry}`
+//     }
+//     return "";
+// }
     return(
         <div>
             <h2>Select Location</h2>
@@ -120,7 +120,7 @@ const displayString=()=>{
             </select>
             <div style={{margin:20, color:"grey", fontWeight:"bold"}}>
                
-                {displayString() && <p>{displayString()}</p>}
+                {selectedCity && selectedState && selectedCountry &&( <p>You selected {selectedCity}, {selectedState}, {selectedCountry}</p>)}
             
 
             </div>
