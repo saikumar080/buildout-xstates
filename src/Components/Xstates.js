@@ -20,7 +20,7 @@ const Xstates = () => {
         try{
             const response=await fetch(`${BASE_URL}/countries`);
             const data=await response.json();
-            setCountries(data)
+            setCountries(Array.isArray(data) ? data :[]) 
         }
         catch(err){
             console.error("Error while fetching coutnries: ", err)
@@ -38,7 +38,7 @@ const Xstates = () => {
                 try{
                     const response=await fetch(`${BASE_URL}/country=${selectedCountry}/states`)
                     const data=await response.json();
-                    setStates(data);
+                    setStates(Array.isArray(data) ? data :[]);
                     setSelectedState("");
                     setCities([]);
                     setSelectedCity("");
@@ -60,7 +60,8 @@ const Xstates = () => {
             try{
                 const response=await fetch(`${BASE_URL}/country=${selectedCountry}/state=${selectedState}/cities`);
                 const data=await response.json();
-                setCities(data);
+                setCities(Array.isArray(data) ? data :[]);
+                setSelectedCity("");
                 console.log("Cities data: ",data)
             }catch(err){
                 console.error("Fetching Cities: ",err)
@@ -69,10 +70,7 @@ const Xstates = () => {
         fetchCities();
         }
     },[selectedState, selectedCountry])
-    useEffect(()=>{
-        setSelectedCity("")
-    },[selectedState])
-  
+   
 
     const handleOnChangeCountries=(e)=>{
         setSelectedCountry(e.target.value);
@@ -85,6 +83,17 @@ const handleOnChangeStates=(e)=>{
 //=========Rendering for states=========
 const handleOnChangeCity=(e)=>{
     setSelectedCity(e.target.value);
+}
+//Build display String  to show the selected location=======
+const displayString=()=>{
+    if(selectedCity){
+        return `You selected ${selectedCity}, ${selectedState},${selectedCountry}`;
+    }else if(selectedState){
+        return `You selected ${selectedState},${selectedCountry}`
+    }else if(selectedCountry){
+        return `You Selected ${selectedCountry}`
+    }
+    return "";
 }
     return(
         <div>
@@ -109,10 +118,10 @@ const handleOnChangeCity=(e)=>{
                     <option key={ind} value={city}>{city}</option>
                 ))}
             </select>
-            <div style={{margin:10, color:"grey", fontWeight:"bold"}}>
-               {selectedCountry && selectedState && selectedCity &&(
-                <h3>You selected {selectedCity},{selectedState},{selectedCountry}  </h3>
-               )}
+            <div style={{margin:20, color:"grey", fontWeight:"bold"}}>
+               
+                {displayString() && <p>{displayString()}</p>}
+            
 
             </div>
         </div>
